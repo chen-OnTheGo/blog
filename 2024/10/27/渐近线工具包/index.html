@@ -166,30 +166,31 @@
     <div class="divider"></div>
 
     <div class="content">
-        <h2 id="大Θ表示法"><a href="#大Θ表示法" class="headerlink" title="大Θ表示法"></a><em>大Θ表示法</em></h2><p>![[Pasted image 20241027134555.png]]</p>
+        <h2 id="大Θ表示法"><a href="#大Θ表示法" class="headerlink" title="大Θ表示法"></a><em>大Θ表示法</em></h2><p><img src="/heo/source/imgs/p1.png" alt="111"></p>
 <p>这里引入了用 &#x3D;&#x3D;Θ( f(N) )&#x3D;&#x3D; 来描述当函数随着输入规模增长时，其时间或空间资源使用的增长速率，其需要满足的条件是：</p>
 <p>当表达R(N)时，当<strong>N趋近于无穷</strong>时，存在两个<strong>正数</strong>k1、k2，使得：</p>
-<pre><code>![[Pasted image 20241027134942.png]]
+<pre><code>![[heo/source/imgs/p2.png]]
 </code></pre>
 <p>才能用 Θ(f(N)) 来表示R(N)的增长趋势。</p>
 <h2 id="大O表示法"><a href="#大O表示法" class="headerlink" title="大O表示法"></a><em>大O表示法</em></h2><p><strong>如果把大Θ看作表示“等于”关系的话，大O则表示“小于等于”。</strong><br>例如：</p>
-<p>![[Pasted image 20241027141157.png]]</p>
+<p>![[heo&#x2F;source&#x2F;imgs&#x2F;p3.png]]</p>
 <p>大O表示法前提：</p>
-<p>![[Pasted image 20241027141305.png]]</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>![[Pasted image 20241027142401.png]]</p>
+<p>![[heo&#x2F;source&#x2F;imgs&#x2F;p4.png]]</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>![[heo&#x2F;source&#x2F;imgs&#x2F;p5.png]]</p>
 <p>当我们得到一个代码片段的时候，我们可以将其运行时间表示为C(N)。<br>一般情况下我们在意的是事件的增长规律，而不是具体发生了什么事件（这需要一个非常详细的计算机模型）。<br>然后计算出C(N)的增长规律f(N)，e.g:C(N) ∈ Θ(f(N))。（常考虑最坏的情况下的计数）<br>可用大O表示法替代大Θ表示法，大O表示法一般用于表示上限。</p>
-<h2 id="大Ω表示法"><a href="#大Ω表示法" class="headerlink" title="大Ω表示法"></a><em>大Ω表示法</em></h2><p>![[Pasted image 20241027145214.png]]</p>
+<h2 id="大Ω表示法"><a href="#大Ω表示法" class="headerlink" title="大Ω表示法"></a><em>大Ω表示法</em></h2><p>![[heo&#x2F;source&#x2F;imgs&#x2F;p6.png]]</p>
 <p>如果把大Θ看作表示“等于”关系，大O表示“小于等于”的话，大Ω则表示“大于等于”。</p>
 <p>比较</p>
-<p>![[Pasted image 20241027145425.png]]</p>
+<p>![[heo&#x2F;source&#x2F;imgs&#x2F;p7.png]]</p>
 <p>大Θ表示的是增长速率为f(N)的函数，<br>大O表示的是增长速率<strong>小于等于</strong>f(N)的函数。<br>大Ω表示的是增长速率<strong>大于等于</strong>f(N)的函数</p>
-<p>![[Pasted image 20241027145454.png]]</p>
+<p>![[heo&#x2F;source&#x2F;imgs&#x2F;p8.png]]</p>
 <p>大Ω表示法的作用：<br>    1. 更详细地表示增长速率。大O表示法与大Ω表示法表示的范围的交集等于大Θ表示法表示的范围。</p>
 <pre><code>    如果R(N) = O(f(N)), 并且R(N) = Ω(f(N)), 则R(N) = Θ(f(N))。
 </code></pre>
 <p>2.为问题的难度提供下限。<br>    例如：查看一个数组中是否有重复项的算法的运行时间是Ω(N)，意味着找不到其他的任何算法比线性算法N快。因为至少需要将该数组中的每一个元素都遍历一遍。</p>
+<p>![[heo&#x2F;source&#x2F;imgs&#x2F;p9.png]]</p>
 <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><ol>
-<li><p>![[Pasted image 20241027152306.png]]</p>
+<li><p>![[heo&#x2F;source&#x2F;imgs&#x2F;p10.png]]</p>
 <p>  answer： False. 因为渐近线工具包只适用于N趋近于无穷大的前提条件下，而100太小。</p>
 </li>
 </ol>
