@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head prefix="og: https://ogp.me/ns#">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  
+  <title>myBlog</title>
+  
+    <link rel="shortcut icon" href="/./themes/cupertino/source/theme-img/favicon.ico">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
+
+  
+  
+  
+  <meta property="og:title" content="myBlog" />
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:url" content="https://chen-onthego.github.io/2024/11/06/%E4%B8%8D%E7%9B%B8%E4%BA%A4%E9%9B%86/index.html" />
+  
+  <meta property="og:image" content="/favicon.png" />
+  
+  <meta property="og:article:published_time" content="2024-11-06T15:16:29.178Z" />
+  
+  <meta property="og:article:author" content="chen" />
+  
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/code-highlighting.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+<link rel="stylesheet" href="/css/rainbow-banner.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/toc.css">
+
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+  
+  
+  
+  
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+    <body
+        data-color-scheme="auto"
+        data-uppercase-categories="true"
+        
+        data-rainbow-banner="true"
+        data-rainbow-banner-shown="auto"
+        data-rainbow-banner-month="6"
+        data-rainbow-banner-colors="#e50000,#ff8d00,#ffee00,#008121,#004cff,#760188"
+        
+        data-config-root="/"
+        
+        data-toc="true"
+        data-toc-max-depth="2"
+        
+        
+    >
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">主页</a>
+            
+            
+            <a class="nav-item" href="/archives">Archives</a>
+            
+            
+            
+            <a class="nav-item" href="/friends">Friends</a>
+            
+            
+            
+            <a class="nav-item" href="/projects">Projects</a>
+            
+            
+            
+            <a class="nav-item" href="/about">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/MrWillCom" target="_blank" aria-label="GitHub">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/mrwillcom" target="_blank" aria-label="CodePen">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.patreon.com/MrWillCom" target="_blank" aria-label="Patreon">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-mastodon nav-item-icon" href="https://noc.social/@MrWillCom" target="_blank" aria-label="Mastodon">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-discord nav-item-icon" href="https://discord.gg/UKuFDjcfY8" target="_blank" aria-label="Discord">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-search nav-item-icon" href="/search" target="_blank" aria-label="Search">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+        
+<article class="post">
+    <div class="meta">
+        
+
+        
+        <div class="date" id="date">
+            <span>November</span>
+            <span>6,</span>
+            <span>2024</span>
+        </div>
+        
+
+        <h1 class="title"></h1>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <blockquote>
+<p>The lesson to take away is that <strong>initial design decisions determine our code complexity and runtime.</strong><br><em>最初的设计决策会直接影响我们代码的复杂性和运行时间。</em></p>
+</blockquote>
+<p>这一节我们讨论对不相交集的一些处理方式。</p>
+<p>假设有一个社交网络平台，平台上有许多用户，最初每个用户都是一个独立的个体，即没有任何朋友关系。随着时间推移，用户可以通过平台互相添加好友。如果我们需要给平台添加功能，使其能够快速完成如下两个操作：</p>
+<ol>
+<li><p><strong>判断是否已成为好友</strong>：给定两个用户，判断他们是否在同一个朋友圈里，即是否存在好友关系。</p>
+</li>
+<li><p><strong>合并朋友圈</strong>：当两人成为好友时，将他们的朋友圈合并。</p>
+</li>
+</ol>
+<p>当我们遇到类似于上文的情况 —— <em><strong>每个人（或事物）最开始属于各自的独立集合，而随着关系的增加，不断合并成更大的群体。</strong></em>—— 此时，我们就可以通过利用不相交集的优势来解决类似的问题。</p>
+<p>首先，什么是不相交集？</p>
+<blockquote>
+<p>若两个集合没有共同元素，则它们被称为不相交集合。</p>
+</blockquote>
+<p>即多个集合之间没有共同的元素，每个元素只能属于一个集合。<br>例如：<br>我们可以把每个国家视为一个集合，并将在其中生活的人视为元素。同一个人不能同时生活在两个国家里，所以每个国家分别是一个不相交的集合。<br>而在文章开头的例子中，我们则可以把每个用户都看作元素，而没有在一个朋友圈里、且没有共同好友的两个用户则分别存在于两个不相交的集合中。</p>
+<blockquote>
+<p>不相交集合（或并查集）数据结构跟踪划分为多个<em>不相交集合</em>的固定数量的元素。</p>
+</blockquote>
+<p>不相交集合是一种数据结构，它用于管理多个集合，其中每个集合都是不相交的。这种数据结构可以有效地进行以下两种基本的操作：</p>
+<p>1.<strong>查找</strong> ：<em>确定一个元素是否属于该集合。</em></p>
+<pre><code>方法为：
+ isConnected(x, y) : 如果 x 和 y 是连通的（即属于同一个集合），则返回 true 。
+</code></pre>
+<p>2.<strong>合并</strong> ：<em>将两个集合合并为一个集合。</em></p>
+<pre><code>方法为：
+connect(x, y) ：连接 x 和 y 。也称为 union 。
+</code></pre>
+<p>举个形象的栗子：</p>
+<p>假设我们有四个元素，分别为<code>A</code>、<code>B</code>、<code>C</code>、<code>D</code>，每个元素都在它自己的集合中：</p>
+<p><img src="/../img/Pasted%20image%2020241101200901.png"></p>
+<p>调用<code>connect(A, B)</code>，将<code>A</code>、<code>B</code>元素所在的集合合并为一个集合(也可以看作将<code>A</code>、<code>B</code>元素合并为一个集合)，得到：</p>
+<p><img src="/../img/Pasted%20image%2020241101200915.png"></p>
+<p>此时调用<code>isConnected()</code>方法：</p>
+<p><code>isConnected(A, B) =&gt; true</code><br><code>isConnected(A, C) =&gt; false</code></p>
+<h1 id="什么是interface？"><a href="#什么是interface？" class="headerlink" title="什么是interface？"></a>什么是interface？</h1><p>不过，我们要怎么来保存这些不相交集合的数据，以便知道每个数据分别属于哪个集合呢？我们又可以用哪种结构或图形来表示这个数据结构呢？接下来，将会展示该数据结构是如何演变的，从<strong>快速查找</strong>（<em><strong>Quick Find</strong></em>）到<strong>具有路径压缩的加权快速合并</strong>（<em><strong>WQU with Path Compression</strong></em>）。我们将看到，如本文第一句引用所示，设计决策是如何显著影响运行时间和代码复杂性的。</p>
+<p>我们可以将不相交集合直观灵活地表示为集合列表，例如<code>List&lt;Set&lt;Integer&gt;&gt;</code>。<br>如果我们有N&#x3D;5个元素，并且各属于不同的集合，则用集合列表可以表示为：   </p>
+<p><code>&#123;1&#125;、&#123;2&#125;、&#123;3&#125;、&#123;4&#125;、&#123;5&#125;</code></p>
+<p>但是，如果我们想执行<code>connect(4, 5)</code>。首先，我们需要确定这些集合中的哪个集合包含了这两个元素，这就可能需要通过遍历所有的集合（最坏的情况下），该查找操作的时间复杂度为O(N)。而且若要实现这些方法，代码将非常复杂。</p>
+<p>需要强调的是，我们可以很容易地发现，<code>查找</code>和 <code>连接</code>这两个操作看重的是数据之间的联系（是否属于同一个集合），而不是数据本身。</p>
+<h2 id="快速查找（Quick-Find）"><a href="#快速查找（Quick-Find）" class="headerlink" title="快速查找（Quick Find）"></a>快速查找（Quick Find）</h2><p>上一个方法在查找元素方面就花费了大量时间，有什么方法可以缩短时间？</p>
+<p>查找元素无异于找到元素所在位置，若找到一个能够对元素快速定位的结构，将大大缩短运行时间。那么，什么结构访问特定元素非常方便呢？没错，就是数组。</p>
+<p>于是我们考虑使用<code>一维数组</code>来表示这些数据。</p>
+<ul>
+<li><strong>数组的索引</strong> 代表集合的元素（每个数据）。</li>
+<li><strong>每个索引对应的数组元素</strong> 代表该数据所属集合的编号。</li>
+</ul>
+<p>例如，我们表示<code>&#123;0, 1, 2, 4&#125;, &#123;3, 5&#125;, &#123;6&#125;</code>为：</p>
+<p><img src="/../img/Pasted%20image%2020241101204211.png"></p>
+<p>这里的数组索引（0，1，……，6）是元素（数据），其对应的数组元素<code>id[i]</code>就是它所属的集合的编号，集合编号相同的两个元素，就表示它们在同一个集合中。</p>
+<p>这样，当我们执行<code>connect(x, y)</code>时，只需要修改数据对应的集合编号即可（即修改索引对应的数组元素值）。</p>
+<p>当执行<code>isConnected(x, y)</code>时，就只需要检查数据对应的集合编号是否相同（<code>id[x] == id[y]</code>）。这个操作的执行时间是固定的，不会随输入的大小而变化（执行时间复杂度为<code>Θ(1)</code>）。</p>
+<p>这种实现被称为“<strong>快速查找</strong>”（<em><strong>Quick Find</strong></em>），因为该实现查找元素是否相互连接需要的时间是恒定的。</p>
+<h3 id="代码-运行时间"><a href="#代码-运行时间" class="headerlink" title="代码&amp;运行时间"></a>代码&amp;运行时间</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public class QuickFindDS implements DisjointSets&#123;</span><br><span class="line"></span><br><span class="line">	private int[] id;</span><br><span class="line">	</span><br><span class="line">	    /* Θ(N) */</span><br><span class="line">	    // 创建数组</span><br><span class="line">	    public QuickFindDS(int N)&#123;</span><br><span class="line">	        id = new int[N];</span><br><span class="line">	        for (int i = 0; i &lt; N; i++)&#123;</span><br><span class="line">	            id[i] = i;</span><br><span class="line">	        &#125;</span><br><span class="line">	    &#125;</span><br><span class="line">	</span><br><span class="line">	    /* 遍历整个数组，查找所有与元素p在同一集合中的元素，其时间复杂度为 =&gt; Θ(N) */</span><br><span class="line">	    public void connect(int p, int q)&#123;</span><br><span class="line">	        int pid = id[p];</span><br><span class="line">	        int qid = id[q];</span><br><span class="line">	        for (int i = 0; i &lt; id.length; i++)&#123;</span><br><span class="line">	            if (id[i] == pid)&#123;</span><br><span class="line">	                id[i] = qid;</span><br><span class="line">	            &#125;</span><br><span class="line">	        &#125;</span><br><span class="line">	    &#125;</span><br><span class="line">	</span><br><span class="line">	    /* Θ(1) */</span><br><span class="line">	    public boolean isConnected(int p, int q)&#123;</span><br><span class="line">	        return (id[p] == id[q]);</span><br><span class="line">	    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>N &#x3D; DisjointSets数据结构中元素的数量</p>
+<p>尽管快速查找在运行时间上优化了很多，并且让<code>isConnected(x, y)</code>方法的时间复杂度降为<code>Θ(1)</code>，但它的<code>connect(x, y)</code>方法操作起来仍然很慢（需要将其中一个集合里的所有元素对应的集合编号都进行修改，才能将两个集合连接起来）。因此，我们需要对<code>connect(x, y)</code>进行优化。</p>
+<p>怎样才能更简便地合并两个集合，是否可以仅通过修改数据结构中的一个值，就达到此目的？<strong>快速合并</strong>方法可以实现这个功能。</p>
+<h2 id="快速合并（Quick-Union）"><a href="#快速合并（Quick-Union）" class="headerlink" title="快速合并（Quick Union）"></a>快速合并（Quick Union）</h2><p>在这个方法中，我们只对存储在数组中的元素进行改变，通过给每个集合中的元素分配父元素，例如：</p>
+<p><code>&#123;0, 1, 2, 4&#125;, &#123;3, 5&#125;, &#123;6&#125;</code></p>
+<p>分别给元素<code>2</code>分配父元素<code>1</code>，给元素<code>1</code>分配父元素<code>0</code>，给元素<code>4</code>分配父元素<code>0</code>……</p>
+<p><img src="/../img/Pasted%20image%2020241104210742.png"></p>
+<p>我们可以把它想象成一种类似于树的结构——以“根节点”为起点，逐层向下分支，类似于树的根部逐渐长出树干和树枝；每个节点又可以生长出多个子节点（相当于树的分支），同时，每个子节点又可以看作一棵子树。</p>
+<p>相应地，用数组表示集合时，为每个数据（索引）对应的元素赋值为它的父元素的索引，而不是id。如果某个数据没有父元素，即存在于“最顶部”，则它被称为<code>root</code>，咱给它赋值<code>-1</code>（或者它本身的索引）：</p>
+<p><img src="/../img/Pasted%20image%2020241104211103.png"><br><em><strong>（<code>parent</code>是数组名）</strong></em></p>
+<p>为了“继承”<strong>Quick Find</strong>的优化成果，我们对<strong>Quick Union</strong>定义了一个辅助函数<code>find(int item)</code>，其作用是可以返回<code>item</code>所在树的根，例如：对于上面的集合，<code>find(4) = 0</code>, <code>find(1) = 0</code>等等。每个元素都有唯一的根（<code>root</code>）。</p>
+<p>若要连接两个元素，我们需要找到每个元素所属的集合（它们各自树的根）, 并使一个元素成为另一个元素的子元素。例如：</p>
+<p>假如执行<code>connect(5, 2)</code>：</p>
+<p>1.<em><strong>先分别找到两个元素所属集合的标志</strong></em>：<br><code>find(5)</code> &#x3D;&gt; <code>3</code>;<br><code>find(2)</code> &#x3D;&gt; <code>1</code>;</p>
+<p>2.<em><strong>让其中一棵树的根元素“指向”另一棵树的根元素</strong></em>：<br>将<code>find(5)</code>的值设置为<code>find(2)</code>的值，即<code>parent[5] = 0</code>。</p>
+<p>得到的结果如图所示：</p>
+<p><img src="/../img/Pasted%20image%2020241104222146.png"></p>
+<p>这种方法能带来的最好的情况是，如果<code>connect(x, y)</code>中的<code>x</code>和<code>y</code>都是“根节点”，那么该方法执行过程只是使<code>x</code>指向<code>y</code>，是一个<code>Θ(1)</code>的操作！（因此得名为 <strong>Quick Union</strong>）</p>
+<p>这种操作同时也保留了Quick Find的优点。若要判断两个元素是否属于同一个集合，只需要判断它们的根节点是否相同。所以在调用<code>isConnected(x, y)</code>时，只需判断<code>find(x) == find(y)</code>。</p>
+<h3 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h3><p>但是Quick Union 仍有着一个潜在的问题：在不断连接两个集合后，”这棵树”可能会变得很长。对于底部的子节点，若要去查找它的根节点（即调用<code>find(int item)</code>），要一步一步“向上遍历”，可以说是很困难的。</p>
+<p><img src="/../img/Pasted%20image%2020241104223144.png"></p>
+<p>在这种情况下，我们必须遍历所有节点才能到达根节点，其执行时间为<code>Θ(N)</code>。由于我们在使用<code>connect(x, y)</code>和<code>isConnected(x, y)</code>方法时，都会相应地调用<code>find(item)</code>，因此这两个方法的时间复杂度为<code>O(N)</code>。</p>
+<p>怎么优化这个问题呢？</p>
+<p>聪明的你一定能发现，每当我们调用<code>find(x)</code>时，我们都必须从<code>x</code>遍历到<code>root</code>，例如：调用<code>isConnected(15, 10)</code>时，我们需要先找到元素<code>15</code>的<code>root</code>和元素<code>10</code>的<code>root</code>，判断两者的<code>root</code>是否相同，这个过程就需要不断遍历，直到找到<code>root</code>。如果结构如图，就显得及其复杂: </p>
+<p><img src="/../img/Pasted%20image%2020241106124910.png"></p>
+<p>若要尽可能缩短<code>find(x)</code>操作所需的时间，我们就需要缩短从<code>x</code>到<code>root</code>之间的路径。如果我们直接让该路径上（沿途）的每个节点都指向根节点。</p>
+<p><img src="/../imgs/Pasted%20image%2020241106125955.png"></p>
+<p>那么只需遍历一次，就能够找到<code>root</code>，大大缩短了时间。<br>相当于：</p>
+<p><img src="/../imgs/Pasted%20image%2020241106130228.png"></p>
+<p>如果每次调用 <code>find(x)</code> 方法时，都将沿途遇到的所有节点直接连接到根节点上，从而“压缩”了路径，降低了“树”的高度。这样一来，在后续的 <code>find</code> 方法调用中，就不再需要遍历整个路径，而是直接锁定<code>root</code>，更快地找到根节点。一旦调用的次数足够多，这棵树的高度为<code>1</code>，即每个子节点都直接指向根节点。<br>从长远看，<code>connect</code> 和 <code>isConnected</code>的平均运行时间几乎不变，这种“平均的”长期复杂度称为<strong>摊销运行时</strong>。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="/../imgs/Pasted%20image%2020241106222423.png"></p>
+<p><img src="/../imgs/Pasted%20image%2020241106223047.png"></p>
+<p>本文谈到从<strong>Quick Find</strong> 到  <strong>WQU with Path Compression</strong> 的演变过程。相同的一组数据却可以用不同的方式来表达，当然，其效果与成本也是不尽相同。选择什么样的模型、结构，将会直接影响我们代码的复杂性和运行时间。高效的代码，能够减少时间和空间的消耗，为解决复杂的现实问题提供强有力的工具。</p>
+<h6 id="参考：https-www-youtube-com-playlist-list-PLnp31xXvnfRpMlYLU0hWYDMHNtcGi-Qmm"><a href="#参考：https-www-youtube-com-playlist-list-PLnp31xXvnfRpMlYLU0hWYDMHNtcGi-Qmm" class="headerlink" title="参考：https://www.youtube.com/playlist?list=PLnp31xXvnfRpMlYLU0hWYDMHNtcGi-Qmm"></a>参考：<a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PLnp31xXvnfRpMlYLU0hWYDMHNtcGi-Qmm">https://www.youtube.com/playlist?list=PLnp31xXvnfRpMlYLU0hWYDMHNtcGi-Qmm</a></h6>
+    </div>
+
+    
+    <div class="about">
+        <h1>关于本文</h1>
+        <div class="details">
+            <p>由 chen 撰写, 采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a> 许可协议.</p>
+        </div>
+        
+    </div>
+    
+
+    <div class="container post-prev-next">
+        <a class="next"></a>
+        
+        <a href="/2024/10/27/%E6%9C%AA%E5%91%BD%E5%90%8D/" class="prev">
+            <div>
+                <div class="text">
+                    <p class="label">上一篇</p>
+                    <h3 class="title">未命名</>
+                </div>
+            </div>
+        </a>
+        
+    </div>
+
+    
+        
+        
+    
+</article>
+
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+            <div class="group">
+                <h2 class="title">Blog</h2>
+                
+                <a href="/" class="item">Blog</a>
+                
+                <a href="/archives" class="item">Archives</a>
+                
+                <a href="/tags" class="item">Tags</a>
+                
+                <a href="/categories" class="item">Categories</a>
+                
+                <a href="/search" class="item">Search</a>
+                
+                <a href="/friends" class="item">Friends</a>
+                
+                <a href="/projects" class="item">Projects</a>
+                
+                <a href="/resume" class="item">Resume</a>
+                
+                <a href="/about" class="item">About</a>
+                
+                <a href="/atom.xml" class="item">RSS</a>
+                
+            </div>
+            
+            <div class="group">
+                <h2 class="title">Projects</h2>
+                
+                <a target="_blank" rel="noopener" href="https://github.com/MrWillCom/rsa-cli" class="item">RSA CLI</a>
+                
+                <a target="_blank" rel="noopener" href="https://github.com/MrWillCom/hexo-theme-cupertino" class="item">Hexo Theme Cupertino</a>
+                
+                <a target="_blank" rel="noopener" href="https://github.com/MrWillCom/a-calendar" class="item">A Calendar</a>
+                
+                <a target="_blank" rel="noopener" href="https://github.com/MrWillCom/auto-mirroring-bucket" class="item">Auto Mirroring Bucket</a>
+                
+            </div>
+            
+            <div class="group">
+                <h2 class="title">Me</h2>
+                
+                <a target="_blank" rel="noopener" href="https://github.com/MrWillCom" class="item">GitHub</a>
+                
+                <a target="_blank" rel="noopener" href="https://codepen.io/mrwillcom" class="item">CodePen</a>
+                
+                <a target="_blank" rel="noopener" href="https://www.patreon.com/MrWillCom" class="item">Patreon</a>
+                
+                <a target="_blank" rel="noopener" href="https://noc.social/@MrWillCom" class="item">Mastodon</a>
+                
+                <a target="_blank" rel="noopener" href="https://discord.gg/UKuFDjcfY8" class="item">Discord</a>
+                
+                <a href="mailto:mr.will.com@outlook.com" class="item">Email</a>
+                
+            </div>
+            
+        </div>
+        <span>&copy; 2024 chen<br>由 <a href="http://hexo.io/" target="_blank">Hexo</a> 驱动 </span>
+        
+        
+            <br>
+            <div class="color-scheme-toggle" role="radiogroup" id="theme-color-scheme-toggle">
+                <label>
+                    <input type="radio" value="light">
+                    <span>Light</span>
+                </label>
+                <label>
+                    <input type="radio" value="dark">
+                    <span>Dark</span>
+                </label>
+                <label>
+                    <input type="radio" value="auto">
+                    <span>Auto</span>
+                </label>
+            </div>
+        
+    </div>
+</footer>
+
+
+        
+<script src="/js/main.js"></script>
+
+        
+        
+        
+
+        
+        <script src="https://unpkg.com/scrollreveal"></script>
+        <script>
+            window.addEventListener('load', () => {
+                ScrollReveal({ delay: 250, reset: true, easing: 'cubic-bezier(0, 0, 0, 1)' })
+                ScrollReveal().reveal('.post-list-item .cover-img img')
+                ScrollReveal().reveal('.post-list-item, .card, .content p img, .content .block-large img', { distance: '60px', origin: 'bottom', duration: 800 })
+            })
+        </script>
+        
+    </body>
+</html>
