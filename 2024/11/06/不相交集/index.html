@@ -248,12 +248,12 @@ connect(x, y) ：连接 x 和 y 。也称为 union 。
 <p>聪明的你一定能发现，每当我们调用<code>find(x)</code>时，我们都必须从<code>x</code>遍历到<code>root</code>，例如：调用<code>isConnected(15, 10)</code>时，我们需要先找到元素<code>15</code>的<code>root</code>和元素<code>10</code>的<code>root</code>，判断两者的<code>root</code>是否相同，这个过程就需要不断遍历，直到找到<code>root</code>。如果结构如图，就显得及其复杂: </p>
 <p><img src="/../img/Pasted%20image%2020241106124910.png"></p>
 <p>若要尽可能缩短<code>find(x)</code>操作所需的时间，我们就需要缩短从<code>x</code>到<code>root</code>之间的路径。如果我们直接让该路径上（沿途）的每个节点都指向根节点。</p>
-<p><img src="/../imgs/Pasted%20image%2020241106125955.png"></p>
+<p><img src="/../img/Pasted%20image%2020241106125955.png"></p>
 <p>那么只需遍历一次，就能够找到<code>root</code>，大大缩短了时间。<br>相当于：</p>
-<p><img src="/../imgs/Pasted%20image%2020241106130228.png"></p>
+<p><img src="/../img/Pasted%20image%2020241106130228.png"></p>
 <p>如果每次调用 <code>find(x)</code> 方法时，都将沿途遇到的所有节点直接连接到根节点上，从而“压缩”了路径，降低了“树”的高度。这样一来，在后续的 <code>find</code> 方法调用中，就不再需要遍历整个路径，而是直接锁定<code>root</code>，更快地找到根节点。一旦调用的次数足够多，这棵树的高度为<code>1</code>，即每个子节点都直接指向根节点。<br>从长远看，<code>connect</code> 和 <code>isConnected</code>的平均运行时间几乎不变，这种“平均的”长期复杂度称为<strong>摊销运行时</strong>。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="/../imgs/Pasted%20image%2020241106222423.png"></p>
-<p><img src="/../imgs/Pasted%20image%2020241106223047.png"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="/../img/Pasted%20image%2020241106222423.png"></p>
+<p><img src="/../img/Pasted%20image%2020241106223047.png"></p>
 <p>本文谈到从<strong>Quick Find</strong> 到  <strong>WQU with Path Compression</strong> 的演变过程。相同的一组数据却可以用不同的方式来表达，当然，其效果与成本也是不尽相同。选择什么样的模型、结构，将会直接影响我们代码的复杂性和运行时间。高效的代码，能够减少时间和空间的消耗，为解决复杂的现实问题提供强有力的工具。</p>
 <h6 id="参考：https-www-youtube-com-playlist-list-PLnp31xXvnfRpMlYLU0hWYDMHNtcGi-Qmm"><a href="#参考：https-www-youtube-com-playlist-list-PLnp31xXvnfRpMlYLU0hWYDMHNtcGi-Qmm" class="headerlink" title="参考：https://www.youtube.com/playlist?list=PLnp31xXvnfRpMlYLU0hWYDMHNtcGi-Qmm"></a>参考：<a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PLnp31xXvnfRpMlYLU0hWYDMHNtcGi-Qmm">https://www.youtube.com/playlist?list=PLnp31xXvnfRpMlYLU0hWYDMHNtcGi-Qmm</a></h6>
     </div>
